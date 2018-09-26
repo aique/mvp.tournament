@@ -2,7 +2,9 @@
 
 namespace App\Entity\Stats;
 
-class HandballStats {
+use App\Services\Score\HandballPlayerScoreService;
+
+class HandballStats implements GameStats {
 
     private $position;
     private $goalMade;
@@ -33,5 +35,9 @@ class HandballStats {
      */
     public function getGoalReceived() {
         return $this->goalReceived;
+    }
+
+    public function getScoreService() {
+        return new HandballPlayerScoreService($this);
     }
 }

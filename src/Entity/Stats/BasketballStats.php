@@ -2,7 +2,9 @@
 
 namespace App\Entity\Stats;
 
-class BasketballStats {
+use App\Services\Score\BasketballPlayerScoreService;
+
+class BasketballStats implements GameStats {
 
     private $position;
     private $points;
@@ -42,5 +44,9 @@ class BasketballStats {
      */
     public function getAssists() {
         return $this->assists;
+    }
+
+    public function getScoreService() {
+        return new BasketballPlayerScoreService($this);
     }
 }

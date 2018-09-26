@@ -2,12 +2,10 @@
 
 namespace App\Services\Score;
 
-use App\Entity\Stats\BasketballStats;
 use App\Entity\Stats\HandballStats;
-use App\Entity\Stats\ScorablePlayerStats;
 use App\Exceptions\WrongDataFileFormatException;
 
-class HandballPlayerScoreUtil implements ScorablePlayerStats {
+class HandballPlayerScoreService implements ScorablePlayerStats {
 
     const GOAL_MADE_STAT_TYPE = 'goal_made';
     const GOAL_RECEIVED_STAT_TYPE = 'goal_received';
@@ -26,12 +24,21 @@ class HandballPlayerScoreUtil implements ScorablePlayerStats {
         return $this->matchStats->getGoalMade();
     }
 
+    /**
+     * @return float|int
+     * @throws WrongDataFileFormatException
+     */
     public function getPlayerScore() {
         return $this->getInitialRatingPoints($this->matchStats->getPosition()) +
             $this->matchStats->getGoalMade() * $this->getGoalMadeRating($this->matchStats->getPosition()) -
             $this->matchStats->getGoalReceived() * $this->getGoalReceivedRating($this->matchStats->getPosition());
     }
 
+    /**
+     * @param $position
+     * @return int
+     * @throws WrongDataFileFormatException
+     */
     private function getInitialRatingPoints($position) {
         switch ($position) {
             case self::GOALKEEPER_POSITION:
@@ -43,6 +50,11 @@ class HandballPlayerScoreUtil implements ScorablePlayerStats {
         }
     }
 
+    /**
+     * @param $position
+     * @return int
+     * @throws WrongDataFileFormatException
+     */
     private function getGoalMadeRating($position) {
         switch ($position) {
             case self::GOALKEEPER_POSITION:
@@ -54,6 +66,11 @@ class HandballPlayerScoreUtil implements ScorablePlayerStats {
         }
     }
 
+    /**
+     * @param $position
+     * @return int
+     * @throws WrongDataFileFormatException
+     */
     private function getGoalReceivedRating($position) {
         switch ($position) {
             case self::GOALKEEPER_POSITION:

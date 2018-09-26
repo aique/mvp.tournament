@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Entity\Stats;
+namespace App\Services\Score;
+
+use App\Exceptions\WrongDataFileFormatException;
 
 interface ScorablePlayerStats {
 
@@ -11,8 +13,12 @@ interface ScorablePlayerStats {
     public function getMatchScore();
 
     /**
+     * TODO: Se ha añadido un throws a este método para tener presente que
+     * hay una excepción que ha de ser manejada.
+     *
      * Devuelve los puntos realizados por un jugador para ser elegido MVP.
      * @return int
+     * @throws WrongDataFileFormatException
      */
     public function getPlayerScore();
 }

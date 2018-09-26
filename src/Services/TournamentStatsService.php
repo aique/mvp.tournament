@@ -1,11 +1,18 @@
 <?php
 
 namespace App\Services;
+use App\Entity\Match;
+use App\Exceptions\WrongDataFileFormatException;
 
-class TournamentStatsUtil {
+/**
+ * TODO: Se ha eliminado el método estático de esta clase. La clase puede
+ * ser renombrada de forma más identificativa con respecto a su funcionalidad
+ * principal, por ejemplo MVPFinder/MVPCalculator.
+ */
+class TournamentStatsService {
 
-    public static function getMVP($matches) {
-        $playerScores = self::getFinalScores($matches);
+    public function getMVP(array $matches) {
+        $playerScores = $this->getFinalScores($matches);
         $highestScore = 0;
         $mvp = null;
 
@@ -21,10 +28,10 @@ class TournamentStatsUtil {
 
     /**
      * Se crea la tabla de puntuaciones definitiva, añadiendo la puntuación adicional por partido ganado.
-     * @param $matches
+     * @param array $matches
      * @return array
      */
-    private static function getFinalScores($matches) {
+    private function getFinalScores(array $matches) {
         $playerScores = [];
 
         /** @var Match $match */
@@ -41,7 +48,9 @@ class TournamentStatsUtil {
                 } else {
                     $playerScores[$highestPlayerStat->getPlayer()->getNickname()] = $playerScore;
                 }
-            } catch (WrongDataFileFormatException $ex) {}
+            } catch (WrongDataFileFormatException $ex) {
+                // TODO tratar la excepción
+            }
         }
 
         return $playerScores;

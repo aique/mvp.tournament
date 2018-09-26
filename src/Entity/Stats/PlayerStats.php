@@ -2,24 +2,24 @@
 
 namespace App\Entity\Stats;
 
-use App\Entity\Match;
+use App\Entity\Player;
+use App\Entity\Team;
+use App\Exceptions\WrongDataFileFormatException;
+use App\Services\Score\ScorablePlayerStats;
 use App\Services\Score\ScoreUtilFactory;
 
 class PlayerStats implements ScorablePlayerStats {
 
-    /** @var \App\Entity\Team */
+    /** @var Team */
     private $team;
-    /** @var \App\Entity\Player */
+    /** @var Player */
     private $player;
-    /** @var \App\Entity\Match */
-    private $match;
-    /** @var ScorablePlayerStats */
+    /** @var GameStats */
     private $gameStats;
 
-    public function __construct($player, $team, $match, $gameStats) {
+    public function __construct($player, $team, $gameStats) {
         $this->player = $player;
         $this->team = $team;
-        $this->match = $match;
         $this->gameStats = $gameStats;
     }
 
@@ -28,56 +28,43 @@ class PlayerStats implements ScorablePlayerStats {
      * @return int
      */
     public function getMatchScore() {
-        return ScoreUtilFactory::getScoreUtil($this->match->getMatchType(), $this->gameStats)->getMatchScore();
+        return $this->gameStats->getScoreService()->getMatchScore();
     }
 
     /**
      * Devuelve los puntos realizados por un jugador para ser elegido MVP.
-     * @return int
+     * @return float|int
+     * @throws WrongDataFileFormatException
      */
     public function getPlayerScore() {
-        return ScoreUtilFactory::getScoreUtil($this->match->getMatchType(), $this->gameStats)->getPlayerScore();
+        return $this->gameStats->getScoreService()->getPlayerScore();
     }
 
     /**
-     * @return \App\Entity\Team
+     * @return Team
      */
     public function getTeam() {
         return $this->team;
     }
 
     /**
-     * @param \App\Entity\Team $team
+     * @param Team $team
      */
     public function setTeam($team) {
         $this->team = $team;
     }
 
     /**
-     * @return \App\Entity\Player
+     * @return Player
      */
     public function getPlayer() {
         return $this->player;
     }
 
     /**
-     * @param \App\Entity\Player $player
+     * @param Player $player
      */
     public function setPlayer($player) {
         $this->player = $player;
-    }
-
-    /**
-     * @return Match
-     */
-    public function getMatch() {
-        return $this->match;
-    }
-
-    /**
-     * @param Match $match
-     */
-    public function setMatch($match) {
-        $this->match = $match;
     }
 }

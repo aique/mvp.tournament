@@ -3,10 +3,9 @@
 namespace App\Services\Score;
 
 use App\Entity\Stats\BasketballStats;
-use App\Entity\Stats\ScorablePlayerStats;
 use App\Exceptions\WrongDataFileFormatException;
 
-class BasketballPlayerScoreUtil implements ScorablePlayerStats {
+class BasketballPlayerScoreService implements ScorablePlayerStats {
 
     const SCORED_POINT_STAT_TYPE = 'scored_point';
     const REBOUND_STAT_TYPE = 'rebound';
@@ -27,12 +26,21 @@ class BasketballPlayerScoreUtil implements ScorablePlayerStats {
         return $this->matchStats->getPoints();
     }
 
+    /**
+     * @return float|int
+     * @throws WrongDataFileFormatException
+     */
     public function getPlayerScore() {
         return $this->matchStats->getPoints() * $this->getScoredPointRating($this->matchStats->getPosition()) +
             $this->matchStats->getRebounds() * $this->getReboundRating($this->matchStats->getPosition()) +
             $this->matchStats->getAssists() * $this->getAssistRating($this->matchStats->getPosition());
     }
 
+    /**
+     * @param $position
+     * @return int
+     * @throws WrongDataFileFormatException
+     */
     private function getScoredPointRating($position) {
         switch ($position) {
             case self::GUARD_POSITION:
@@ -44,6 +52,11 @@ class BasketballPlayerScoreUtil implements ScorablePlayerStats {
         }
     }
 
+    /**
+     * @param $position
+     * @return int
+     * @throws WrongDataFileFormatException
+     */
     private function getReboundRating($position) {
         switch ($position) {
             case self::GUARD_POSITION:
@@ -57,6 +70,11 @@ class BasketballPlayerScoreUtil implements ScorablePlayerStats {
         }
     }
 
+    /**
+     * @param $position
+     * @return int
+     * @throws WrongDataFileFormatException
+     */
     private function getAssistRating($position) {
         switch ($position) {
             case self::GUARD_POSITION:

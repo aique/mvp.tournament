@@ -3,33 +3,17 @@
 namespace App\Entity;
 
 use App\Entity\Stats\PlayerStats;
-use App\Services\MatchStatsUtil;
+use App\Services\MatchStatsService;
 
 class Match {
 
-    const BASKETBALL_MATCH = 'basketball';
-    const HANDBALL_MATCH = 'handball';
-
-    private $matchType;
     /** @var array */
     private $stats;
+    /** @var MatchStatsService */
+    private $matchStatsService;
 
-    public function __construct($matchType) {
-        $this->matchType = $matchType;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getMatchType() {
-        return $this->matchType;
-    }
-
-    /**
-     * @param mixed $matchType
-     */
-    public function setMatchType($matchType) {
-        $this->matchType = $matchType;
+    public function __construct(MatchStatsService $matchStatsService) {
+        $this->matchStatsService = $matchStatsService;
     }
 
     /**
@@ -47,23 +31,10 @@ class Match {
     }
 
     public function getWinner() {
-        return MatchStatsUtil::getWinner($this->stats);
+        return $this->matchStatsService->getWinner($this->stats);
     }
 
     public function getHighestPlayerStat() {
-        $highestPlayerScore = 0;
-        $highestPlayerStat = null;
-
-        /** @var PlayerStats $currentStat */
-        foreach ($this->stats as $currentStat) {
-            $currentPlayerScore = $currentStat->getPlayerScore();
-
-            if ($currentPlayerScore > $highestPlayerScore) {
-                $highestPlayerScore = $currentPlayerScore;
-                $highestPlayerStat = $currentStat;
-            }
-        }
-
-        return $highestPlayerStat;
+        return $this->matchStatsService->getHighestPlayerStat($this->stats);
     }
 }

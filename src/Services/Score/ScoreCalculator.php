@@ -4,7 +4,7 @@ namespace App\Services\Score;
 
 use App\Exceptions\WrongDataFileFormatException;
 
-interface ScorablePlayerStats {
+interface ScoreCalculator {
 
     /**
      * Devuelve los puntos realizados por un jugador para su equipo.

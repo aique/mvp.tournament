@@ -2,12 +2,16 @@
 
 namespace App\Entity\Stats;
 
-use App\Services\Score\ScorablePlayerStats;
+use App\Services\Score\ScoreCalculator;
 
-interface GameStats {
+abstract class GameStats {
 
     /**
-     * @return ScorablePlayerStats
+     * @return ScoreCalculator
      */
-    public function getScoreService();
+    public abstract function getScoreCalculator();
+
+    protected function validPositiveNumericValue($statValue) {
+        return is_numeric($statValue) && $statValue >= 0;
+    }
 }

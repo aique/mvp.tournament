@@ -2,19 +2,20 @@
 
 namespace App\Entity;
 
-use App\Services\TournamentStatsService;
+use App\Services\TournamentMVPFinder;
 
 class Tournament {
 
     private $year;
     /** @var array */
     private $matches;
-    /** @var TournamentStatsService */
-    private $tournamentStatsService;
+    /** @var TournamentMVPFinder */
+    private $mvpFinder;
 
-    public function __construct($year, TournamentStatsService $tournamentStatsUtil) {
+    public function __construct($year, TournamentMVPFinder $mvpFinder) {
         $this->year = $year;
-        $this->tournamentStatsService = $tournamentStatsUtil;
+        $this->matches = [];
+        $this->mvpFinder = $mvpFinder;
     }
 
     /**
@@ -22,13 +23,6 @@ class Tournament {
      */
     public function getYear() {
         return $this->year;
-    }
-
-    /**
-     * @param mixed $year
-     */
-    public function setYear($year) {
-        $this->year = $year;
     }
 
     /**
@@ -52,7 +46,7 @@ class Tournament {
         $this->matches[] = $match;
     }
 
-    public function getMVP() {
-        return $this->tournamentStatsService->getMVP($this->matches);
+    public function getMVPs() {
+        return $this->mvpFinder->getMVPs($this->matches);
     }
 }

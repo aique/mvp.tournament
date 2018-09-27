@@ -16,10 +16,14 @@ class PlayerStatsGenerator {
         $this->gameStatsGenerator = $gameStatsGenerator;
     }
 
-    public function getPlayerStats() {
-        $player = $this->playerGenerator->getPlayer();
-        $team = $this->teamGenerator->getTeam();
-        $gameStats = $this->gameStatsGenerator->getStats();
+    public function getPlayerStats($playerIndex, $teamIndex, $gameStatsIndex) {
+        assert(is_numeric($playerIndex) && $playerIndex > 0);
+        assert(is_numeric($teamIndex) && $teamIndex > 0);
+        assert(is_numeric($gameStatsIndex) && $gameStatsIndex > 0);
+
+        $player = $this->playerGenerator->getPlayer($playerIndex);
+        $team = $this->teamGenerator->getTeam($teamIndex);
+        $gameStats = $this->gameStatsGenerator->getStats($gameStatsIndex);
 
         return new PlayerStats($player, $team, $gameStats);
     }

@@ -14,6 +14,7 @@ class Match {
 
     public function __construct(MatchStatsService $matchStatsService) {
         $this->matchStatsService = $matchStatsService;
+        $this->stats = [];
     }
 
     /**

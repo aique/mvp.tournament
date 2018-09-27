@@ -5,15 +5,11 @@ namespace App\Services\Score;
 use App\Entity\Stats\BasketballStats;
 use App\Exceptions\WrongDataFileFormatException;
 
-class BasketballPlayerScoreService implements ScorablePlayerStats {
+class BasketballScoreCalculator implements ScoreCalculator {
 
     const SCORED_POINT_STAT_TYPE = 'scored_point';
     const REBOUND_STAT_TYPE = 'rebound';
     const ASSIST_STAT_TYPE = 'assist';
-
-    const GUARD_POSITION = 'guard';
-    const FORWARD_POSITION = 'forward';
-    const CENTER_POSITION = 'center';
 
     /** @var BasketballStats */
     private $matchStats;
@@ -43,9 +39,9 @@ class BasketballPlayerScoreService implements ScorablePlayerStats {
      */
     private function getScoredPointRating($position) {
         switch ($position) {
-            case self::GUARD_POSITION:
-            case self::FORWARD_POSITION:
-            case self::CENTER_POSITION:
+            case BasketballStats::GUARD_POSITION:
+            case BasketballStats::FORWARD_POSITION:
+            case BasketballStats::CENTER_POSITION:
                 return 2;
             default:
                 throw new WrongDataFileFormatException();
@@ -59,11 +55,11 @@ class BasketballPlayerScoreService implements ScorablePlayerStats {
      */
     private function getReboundRating($position) {
         switch ($position) {
-            case self::GUARD_POSITION:
+            case BasketballStats::GUARD_POSITION:
                 return 3;
-            case self::FORWARD_POSITION:
+            case BasketballStats::FORWARD_POSITION:
                 return 2;
-            case self::CENTER_POSITION:
+            case BasketballStats::CENTER_POSITION:
                 return 1;
             default:
                 throw new WrongDataFileFormatException();
@@ -77,11 +73,11 @@ class BasketballPlayerScoreService implements ScorablePlayerStats {
      */
     private function getAssistRating($position) {
         switch ($position) {
-            case self::GUARD_POSITION:
+            case BasketballStats::GUARD_POSITION:
                 return 1;
-            case self::FORWARD_POSITION:
+            case BasketballStats::FORWARD_POSITION:
                 return 2;
-            case self::CENTER_POSITION:
+            case BasketballStats::CENTER_POSITION:
                 return 3;
             default:
                 throw new WrongDataFileFormatException();

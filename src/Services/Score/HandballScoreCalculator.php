@@ -5,13 +5,10 @@ namespace App\Services\Score;
 use App\Entity\Stats\HandballStats;
 use App\Exceptions\WrongDataFileFormatException;
 
-class HandballPlayerScoreService implements ScorablePlayerStats {
+class HandballScoreCalculator implements ScoreCalculator {
 
     const GOAL_MADE_STAT_TYPE = 'goal_made';
     const GOAL_RECEIVED_STAT_TYPE = 'goal_received';
-
-    const GOALKEEPER_POSITION = 'goalkeeper';
-    const FIELD_PLAYER_POSITION = 'field_player';
 
     /** @var HandballStats */
     private $matchStats;
@@ -41,9 +38,9 @@ class HandballPlayerScoreService implements ScorablePlayerStats {
      */
     private function getInitialRatingPoints($position) {
         switch ($position) {
-            case self::GOALKEEPER_POSITION:
+            case HandballStats::GOALKEEPER_POSITION:
                 return 50;
-            case self::FIELD_PLAYER_POSITION:
+            case HandballStats::FIELD_PLAYER_POSITION:
                 return 20;
             default:
                 throw new WrongDataFileFormatException();
@@ -57,9 +54,9 @@ class HandballPlayerScoreService implements ScorablePlayerStats {
      */
     private function getGoalMadeRating($position) {
         switch ($position) {
-            case self::GOALKEEPER_POSITION:
+            case HandballStats::GOALKEEPER_POSITION:
                 return 5;
-            case self::FIELD_PLAYER_POSITION:
+            case HandballStats::FIELD_PLAYER_POSITION:
                 return 1;
             default:
                 throw new WrongDataFileFormatException();
@@ -73,9 +70,9 @@ class HandballPlayerScoreService implements ScorablePlayerStats {
      */
     private function getGoalReceivedRating($position) {
         switch ($position) {
-            case self::GOALKEEPER_POSITION:
+            case HandballStats::GOALKEEPER_POSITION:
                 return 2;
-            case self::FIELD_PLAYER_POSITION:
+            case HandballStats::FIELD_PLAYER_POSITION:
                 return 1;
             default:
                 throw new WrongDataFileFormatException();

@@ -5,10 +5,10 @@ namespace App\Entity\Stats;
 use App\Entity\Player;
 use App\Entity\Team;
 use App\Exceptions\WrongDataFileFormatException;
-use App\Services\Score\ScorablePlayerStats;
+use App\Services\Score\ScoreCalculator;
 use App\Services\Score\ScoreUtilFactory;
 
-class PlayerStats implements ScorablePlayerStats {
+class PlayerStats implements ScoreCalculator {
 
     /** @var Team */
     private $team;
@@ -28,7 +28,7 @@ class PlayerStats implements ScorablePlayerStats {
      * @return int
      */
     public function getMatchScore() {
-        return $this->gameStats->getScoreService()->getMatchScore();
+        return $this->gameStats->getScoreCalculator()->getMatchScore();
     }
 
     /**
@@ -37,7 +37,7 @@ class PlayerStats implements ScorablePlayerStats {
      * @throws WrongDataFileFormatException
      */
     public function getPlayerScore() {
-        return $this->gameStats->getScoreService()->getPlayerScore();
+        return $this->gameStats->getScoreCalculator()->getPlayerScore();
     }
 
     /**

@@ -2,18 +2,44 @@
 
 namespace App\Entity\Stats;
 
-use App\Services\Score\HandballPlayerScoreService;
+use App\Exceptions\WrongDataFileFormatException;
+use App\Services\Score\HandballScoreCalculator;
 
-class HandballStats implements GameStats {
+class HandballStats extends GameStats {
+
+    const GOALKEEPER_POSITION = 'goalkeeper';
+    const FIELD_PLAYER_POSITION = 'field_player';
 
     private $position;
     private $goalMade;
     private $goalReceived;
 
+    /**
+     * HandballStats constructor.
+     * @param $position
+     * @param $goalMade
+     * @param $goalReceived
+     * @throws WrongDataFileFormatException
+     */
     public function __construct($position, $goalMade, $goalReceived) {
         $this->position = $position;
         $this->goalMade = $goalMade;
         $this->goalReceived = $goalReceived;
+
+        if (!$this->validStats()) {
+            throw new WrongDataFileFormatException();
+        }
+    }
+
+    private function validStats() {
+        return $this->validPosition() &&
+            $this->validPositiveNumericValue($this->goalMade) &&
+            $this->validPositiveNumericValue($this->goalReceived);
+    }
+
+    private function validPosition() {
+        return $this->position == self::GOALKEEPER_POSITION ||
+            $this->position == self::FIELD_PLAYER_POSITION;
     }
 
     /**
@@ -37,7 +63,7 @@ class HandballStats implements GameStats {
         return $this->goalReceived;
     }
 
-    public function getScoreService() {
-        return new HandballPlayerScoreService($this);
+    public function getScoreCalculator() {
+        return new HandballScoreCalculator($this);
     }
 }

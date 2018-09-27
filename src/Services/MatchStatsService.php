@@ -6,12 +6,6 @@ use App\Entity\Stats\PlayerStats;
 use App\Entity\Team;
 use App\Exceptions\WrongDataFileFormatException;
 
-/**
- * TODO: Se han eliminado los métodos estáticos de esta clase. Se puede separar esta clase
- * en dos servicios más sencillos, con unos nombres más identificativos.
- *
- * Servicio que determina el equipo ganador en función de las estadísticas de un partido.
- */
 class MatchStatsService {
 
     /**
@@ -30,7 +24,7 @@ class MatchStatsService {
 
             if ($team1 == null) {
                 $team1 = $team;
-            } elseif ($team2 == null && strcmp($team1->getName(), $team->getName()) != 0) { // TODO: añadido un elseif tras la revisión
+            } elseif ($team2 == null && strcmp($team1->getName(), $team->getName()) != 0) {
                 $team2 = $team;
             }
 

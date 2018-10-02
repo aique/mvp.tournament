@@ -2,40 +2,29 @@
 
 namespace App\Entity\Stats;
 
-use App\Exceptions\WrongDataFileFormatException;
 use App\Services\Score\BasketballScoreCalculator;
 
-class BasketballStats extends GameStats {
+class BasketballStats extends PlayerStats {
 
-    const GUARD_POSITION = 'guard';
-    const FORWARD_POSITION = 'forward';
-    const CENTER_POSITION = 'center';
+    const GUARD_POSITION = 'G';
+    const FORWARD_POSITION = 'F';
+    const CENTER_POSITION = 'C';
 
     private $position;
     private $points;
     private $rebounds;
     private $assists;
 
-    /**
-     * BasketballStats constructor.
-     * @param $position
-     * @param $points
-     * @param $rebounds
-     * @param $assists
-     * @throws WrongDataFileFormatException
-     */
     public function __construct($position, $points, $rebounds, $assists) {
         $this->position = $position;
         $this->points = $points;
         $this->rebounds = $rebounds;
         $this->assists = $assists;
 
-        if (!$this->validStats()) {
-            throw new WrongDataFileFormatException();
-        }
+        parent::__construct();
     }
 
-    private function validStats() {
+    protected function validStats() {
         return $this->validPosition() &&
             $this->validPositiveNumericValue($this->points) &&
             $this->validPositiveNumericValue($this->rebounds) &&
@@ -64,7 +53,7 @@ class BasketballStats extends GameStats {
         return $this->assists;
     }
 
-    public function getScoreCalculator() {
+    protected function getScoreCalculator() {
         return new BasketballScoreCalculator($this);
     }
 }

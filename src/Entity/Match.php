@@ -2,40 +2,36 @@
 
 namespace App\Entity;
 
-use App\Entity\Stats\PlayerStats;
-use App\Services\MatchStatsService;
+use App\Services\MatchMvpFinder;
+use App\Services\MatchWinnerFinder;
 
 class Match {
 
     /** @var array */
-    private $stats;
-    /** @var MatchStatsService */
-    private $matchStatsService;
+    private $gameStats;
+    /** @var MatchWinnerFinder */
+    private $matchWinnerFinder;
 
-    public function __construct(MatchStatsService $matchStatsService) {
-        $this->matchStatsService = $matchStatsService;
-        $this->stats = [];
+    public function __construct(MatchWinnerFinder $matchWinnerFinder) {
+        $this->matchWinnerFinder = $matchWinnerFinder;
+        $this->gameStats = [];
     }
 
     /**
      * @return array
      */
-    public function getStats() {
-        return $this->stats;
+    public function getGameStats() {
+        return $this->gameStats;
     }
 
     /**
-     * @param array $stats
+     * @param array $gameStats
      */
-    public function setStats($stats) {
-        $this->stats = $stats;
+    public function setGameStats($gameStats) {
+        $this->gameStats = $gameStats;
     }
 
     public function getWinner() {
-        return $this->matchStatsService->getWinner($this->stats);
-    }
-
-    public function getHighestPlayerStat() {
-        return $this->matchStatsService->getHighestPlayerStat($this->stats);
+        return $this->matchWinnerFinder->getWinner($this->gameStats);
     }
 }

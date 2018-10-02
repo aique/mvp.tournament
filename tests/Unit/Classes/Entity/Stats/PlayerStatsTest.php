@@ -2,7 +2,7 @@
 
 namespace App\Tests\Unit\Classes\Entity\Stats;
 
-use App\Entity\Stats\PlayerStats;
+use App\Entity\Stats\GameStats;
 use App\Tests\Unit\Utils\Generation\BasketballStatsGenerator;
 use App\Tests\Unit\Utils\Generation\GameStatsGenerator;
 use App\Tests\Unit\Utils\Generation\HandballStatsGenerator;
@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 class PlayerStatsTest extends TestCase {
 
-    /** @var PlayerStats */
+    /** @var GameStats */
     private $playerStats;
     /** @var GameStatsGenerator */
     private $gameStatsGenerator;
@@ -34,7 +34,7 @@ class PlayerStatsTest extends TestCase {
         $team = $this->teamGenerator->getTeam(TeamGenerator::TEAM_1);
         $gameStats = $gameStatsGenerator->getStats(BasketballStatsGenerator::STATS_RANK_2);
 
-        return new PlayerStats($player, $team, $gameStats);
+        return new GameStats($player, $team, $gameStats);
     }
 
     public function testConstructorPlayer() {
@@ -56,12 +56,12 @@ class PlayerStatsTest extends TestCase {
     }
 
     private function playerStatsAssertions() {
-        $scoreCalculator = $this->gameStatsGenerator->getStats(BasketballStatsGenerator::STATS_RANK_2)->getScoreCalculator();
-        $playerScore = $scoreCalculator->getPlayerScore();
-        $matchScore = $scoreCalculator->getMatchScore();
+        $gameStats = $this->gameStatsGenerator->getStats(BasketballStatsGenerator::STATS_RANK_2);
+        $playerScore = $gameStats->getPlayerScore();
+        $matchScore = $gameStats->getTeamScore();
 
-        $this->assertEquals($playerScore, $this->playerStats->getPlayerScore()); // TODO necesario hacer un mock del servicio
-        $this->assertEquals($matchScore, $this->playerStats->getMatchScore()); // TODO necesario hacer un mock del servicio
+        $this->assertEquals($playerScore, $this->playerStats->getPlayerScore());
+        $this->assertEquals($matchScore, $this->playerStats->getTeamScore());
     }
 
     public function testPlayerSetter() {

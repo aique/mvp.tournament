@@ -55,9 +55,9 @@ class MatchBasketballTest extends MatchTest {
         /** @var Match $match */
         $match = $this->matchGenerator->getOnePlayerStatsMatch([GameStatsGenerator::STATS_RANK_2]);
         $winner = $this->teamGenerator->getTeam(TeamGenerator::TEAM_1);
-        $highestPlayerStat = $this->gameStatsGenerator->getStats(BasketballStatsGenerator::STATS_RANK_2)->getScoreCalculator()->getPlayerScore();
+        $highestPlayerStat = $this->gameStatsGenerator->getStats(BasketballStatsGenerator::STATS_RANK_2)->getPlayerScore();
 
-        $this->assertMatchResult($match, $winner, $highestPlayerStat);
+        $this->assertOneTeamMatch($match, $winner, $highestPlayerStat);
     }
 
     public function testTwoStatsMatch() {
@@ -68,9 +68,8 @@ class MatchBasketballTest extends MatchTest {
         ]);
 
         $winner = $this->teamGenerator->getTeam(TeamGenerator::TEAM_1);
-        $highestPlayerStat = $this->gameStatsGenerator->getStats(BasketballStatsGenerator::STATS_RANK_2)->getScoreCalculator()->getPlayerScore();
 
-        $this->assertMatchResult($match, $winner, $highestPlayerStat);
+        $this->assertMatchResult($match, $winner);
     }
 
     public function testFourStatsMatch() {
@@ -83,8 +82,7 @@ class MatchBasketballTest extends MatchTest {
         ]);
 
         $winner = $this->teamGenerator->getTeam(TeamGenerator::TEAM_2);
-        $highestPlayerStat = $this->gameStatsGenerator->getStats(BasketballStatsGenerator::STATS_RANK_1)->getScoreCalculator()->getPlayerScore();
 
-        $this->assertMatchResult($match, $winner, $highestPlayerStat);
+        $this->assertMatchResult($match, $winner);
     }
 }

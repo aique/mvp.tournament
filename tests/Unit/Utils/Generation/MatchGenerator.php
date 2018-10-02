@@ -3,7 +3,7 @@
 namespace App\Tests\Unit\Utils\Generation;
 
 use App\Entity\Match;
-use App\Services\MatchStatsService;
+use App\Services\MatchWinnerFinder;
 
 class MatchGenerator {
 
@@ -15,21 +15,21 @@ class MatchGenerator {
     }
 
     public function getNoStatsMatch() {
-        $match = new Match(new MatchStatsService());
+        $match = new Match(new MatchWinnerFinder());
 
         return $match;
     }
 
     public function getEmptyStatsMatch() {
-        $match = new Match(new MatchStatsService());
+        $match = new Match(new MatchWinnerFinder());
 
-        $match->setStats([]);
+        $match->setGameStats([]);
 
         return $match;
     }
 
     public function getOnePlayerStatsMatch(array $stats) {
-        $match = new Match(new MatchStatsService());
+        $match = new Match(new MatchWinnerFinder());
 
         $stats = [
             $this->playerStatsGenerator->getPlayerStats(
@@ -39,13 +39,13 @@ class MatchGenerator {
             )
         ];
 
-        $match->setStats($stats);
+        $match->setGameStats($stats);
 
         return $match;
     }
 
     public function getTwoPlayerStatsMatch(array $stats) {
-        $match = new Match(new MatchStatsService());
+        $match = new Match(new MatchWinnerFinder());
 
         $stats = [
             $this->playerStatsGenerator->getPlayerStats(
@@ -60,13 +60,13 @@ class MatchGenerator {
             ),
         ];
 
-        $match->setStats($stats);
+        $match->setGameStats($stats);
 
         return $match;
     }
 
     public function getFourPlayerStatsMatch(array $stats) {
-        $match = new Match(new MatchStatsService());
+        $match = new Match(new MatchWinnerFinder());
 
         $stats = [
             $this->playerStatsGenerator->getPlayerStats(
@@ -91,7 +91,7 @@ class MatchGenerator {
             ),
         ];
 
-        $match->setStats($stats);
+        $match->setGameStats($stats);
 
         return $match;
     }

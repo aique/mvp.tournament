@@ -3,7 +3,7 @@
 namespace App\Tests\Unit\Classes\Entity\Stats;
 
 use App\Entity\Stats\BasketballStats;
-use App\Exceptions\WrongDataFileFormatException;
+use App\Exceptions\InvalidStatsValuesException;
 use App\Tests\Unit\Utils\Generation\BasketballStatsGenerator;
 use PHPUnit\Framework\TestCase;
 
@@ -27,25 +27,25 @@ class BasketballStatsTest extends TestCase {
     }
 
     public function testInvalidPosition() {
-        $this->expectException(WrongDataFileFormatException::class);
+        $this->expectException(InvalidStatsValuesException::class);
 
         new BasketballStats('wrong', 1, 2, 3);
     }
 
     public function testInvalidPoints() {
-        $this->expectException(WrongDataFileFormatException::class);
+        $this->expectException(InvalidStatsValuesException::class);
 
         new BasketballStats(BasketballStats::GUARD_POSITION, -1, 2, 3);
     }
 
     public function testInvalidRebounds() {
-        $this->expectException(WrongDataFileFormatException::class);
+        $this->expectException(InvalidStatsValuesException::class);
 
         new BasketballStats(BasketballStats::GUARD_POSITION, 1, -2, 3);
     }
 
     public function testInvalidAssists() {
-        $this->expectException(WrongDataFileFormatException::class);
+        $this->expectException(InvalidStatsValuesException::class);
 
         new BasketballStats(BasketballStats::GUARD_POSITION, -1, 2, -3);
     }

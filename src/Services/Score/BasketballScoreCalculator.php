@@ -3,7 +3,7 @@
 namespace App\Services\Score;
 
 use App\Entity\Stats\BasketballStats;
-use App\Exceptions\WrongDataFileFormatException;
+use App\Exceptions\InvalidStatsValuesException;
 
 class BasketballScoreCalculator implements ScoreCalculator {
 
@@ -18,14 +18,10 @@ class BasketballScoreCalculator implements ScoreCalculator {
         $this->matchStats = $matchStats;
     }
 
-    public function getMatchScore() {
+    public function getTeamScore() {
         return $this->matchStats->getPoints();
     }
 
-    /**
-     * @return float|int
-     * @throws WrongDataFileFormatException
-     */
     public function getPlayerScore() {
         return $this->matchStats->getPoints() * $this->getScoredPointRating($this->matchStats->getPosition()) +
             $this->matchStats->getRebounds() * $this->getReboundRating($this->matchStats->getPosition()) +
@@ -35,7 +31,7 @@ class BasketballScoreCalculator implements ScoreCalculator {
     /**
      * @param $position
      * @return int
-     * @throws WrongDataFileFormatException
+     * @throws InvalidStatsValuesException
      */
     private function getScoredPointRating($position) {
         switch ($position) {
@@ -44,14 +40,14 @@ class BasketballScoreCalculator implements ScoreCalculator {
             case BasketballStats::CENTER_POSITION:
                 return 2;
             default:
-                throw new WrongDataFileFormatException();
+                throw new InvalidStatsValuesException();
         }
     }
 
     /**
      * @param $position
      * @return int
-     * @throws WrongDataFileFormatException
+     * @throws InvalidStatsValuesException
      */
     private function getReboundRating($position) {
         switch ($position) {
@@ -62,14 +58,14 @@ class BasketballScoreCalculator implements ScoreCalculator {
             case BasketballStats::CENTER_POSITION:
                 return 1;
             default:
-                throw new WrongDataFileFormatException();
+                throw new InvalidStatsValuesException();
         }
     }
 
     /**
      * @param $position
      * @return int
-     * @throws WrongDataFileFormatException
+     * @throws InvalidStatsValuesException
      */
     private function getAssistRating($position) {
         switch ($position) {
@@ -80,7 +76,7 @@ class BasketballScoreCalculator implements ScoreCalculator {
             case BasketballStats::CENTER_POSITION:
                 return 3;
             default:
-                throw new WrongDataFileFormatException();
+                throw new InvalidStatsValuesException();
         }
     }
 }

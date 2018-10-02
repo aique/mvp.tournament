@@ -2,69 +2,40 @@
 
 namespace App\Entity\Stats;
 
-use App\Entity\Player;
-use App\Entity\Team;
-use App\Exceptions\WrongDataFileFormatException;
+use App\Exceptions\InvalidStatsValuesException;
 use App\Services\Score\ScoreCalculator;
-use App\Services\Score\ScoreUtilFactory;
 
-class PlayerStats implements ScoreCalculator {
-
-    /** @var Team */
-    private $team;
-    /** @var Player */
-    private $player;
-    /** @var GameStats */
-    private $gameStats;
-
-    public function __construct($player, $team, $gameStats) {
-        $this->player = $player;
-        $this->team = $team;
-        $this->gameStats = $gameStats;
-    }
+abstract class PlayerStats implements ScoreCalculator {
 
     /**
-     * Devuelve los puntos realizados por un jugador para su equipo.
-     * @return int
+     * GameStats constructor.
+     * @throws InvalidStatsValuesException
      */
-    public function getMatchScore() {
-        return $this->gameStats->getScoreCalculator()->getMatchScore();
+    public function __construct() {
+        if (!$this->validStats()) {
+            throw new InvalidStatsValuesException();
+        }
+    }
+
+    protected abstract function validStats();
+
+    public function getTeamScore() {
+        return $this->getScoreCalculator()->getTeamScore();
     }
 
     /**
-     * Devuelve los puntos realizados por un jugador para ser elegido MVP.
-     * @return float|int
-     * @throws WrongDataFileFormatException
+     * @throws InvalidStatsValuesException
      */
     public function getPlayerScore() {
-        return $this->gameStats->getScoreCalculator()->getPlayerScore();
+        return $this->getScoreCalculator()->getPlayerScore();
     }
 
     /**
-     * @return Team
+     * @return ScoreCalculator
      */
-    public function getTeam() {
-        return $this->team;
-    }
+    protected abstract function getScoreCalculator();
 
-    /**
-     * @param Team $team
-     */
-    public function setTeam($team) {
-        $this->team = $team;
-    }
-
-    /**
-     * @return Player
-     */
-    public function getPlayer() {
-        return $this->player;
-    }
-
-    /**
-     * @param Player $player
-     */
-    public function setPlayer($player) {
-        $this->player = $player;
+    protected function validPositiveNumericValue($statValue) {
+        return is_numeric($statValue) && $statValue >= 0;
     }
 }

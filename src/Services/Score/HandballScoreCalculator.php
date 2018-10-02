@@ -17,8 +17,8 @@ class HandballScoreCalculator implements ScoreCalculator {
         $this->matchStats = $matchStats;
     }
 
-    public function getMatchScore() {
-        return $this->matchStats->getGoalMade();
+    public function getTeamScore() {
+        return $this->matchStats->getGoalsMade();
     }
 
     /**
@@ -27,8 +27,8 @@ class HandballScoreCalculator implements ScoreCalculator {
      */
     public function getPlayerScore() {
         return $this->getInitialRatingPoints($this->matchStats->getPosition()) +
-            $this->matchStats->getGoalMade() * $this->getGoalMadeRating($this->matchStats->getPosition()) -
-            $this->matchStats->getGoalReceived() * $this->getGoalReceivedRating($this->matchStats->getPosition());
+            $this->matchStats->getGoalsMade() * $this->getGoalMadeRating($this->matchStats->getPosition()) -
+            $this->matchStats->getGoalsReceived() * $this->getGoalReceivedRating($this->matchStats->getPosition());
     }
 
     /**

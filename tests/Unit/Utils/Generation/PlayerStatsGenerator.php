@@ -2,7 +2,7 @@
 
 namespace App\Tests\Unit\Utils\Generation;
 
-use App\Entity\Stats\PlayerStats;
+use App\Entity\Stats\GameStats;
 
 class PlayerStatsGenerator {
 
@@ -25,6 +25,6 @@ class PlayerStatsGenerator {
         $team = $this->teamGenerator->getTeam($teamIndex);
         $gameStats = $this->gameStatsGenerator->getStats($gameStatsIndex);
 
-        return new PlayerStats($player, $team, $gameStats);
+        return new GameStats($player, $team, $gameStats);
     }
 }

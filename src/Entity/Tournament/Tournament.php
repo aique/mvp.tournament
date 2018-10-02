@@ -1,21 +1,16 @@
 <?php
 
-namespace App\Entity;
-
-use App\Services\TournamentMVPFinder;
+namespace App\Entity\Tournament;
 
 class Tournament {
 
     private $year;
     /** @var array */
     private $matches;
-    /** @var TournamentMVPFinder */
-    private $mvpFinder;
 
-    public function __construct($year, TournamentMVPFinder $mvpFinder) {
+    public function __construct($year) {
         $this->year = $year;
         $this->matches = [];
-        $this->mvpFinder = $mvpFinder;
     }
 
     /**
@@ -47,6 +42,8 @@ class Tournament {
     }
 
     public function getMVPs() {
-        return $this->mvpFinder->getMVPs($this->matches);
+        $tournamentScoreTable = new TournamentScoreTable($this->matches);
+
+        return $tournamentScoreTable->getMvps();
     }
 }

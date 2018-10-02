@@ -2,7 +2,7 @@
 
 namespace App\Services\Score;
 
-use App\Exceptions\WrongDataFileFormatException;
+use App\Exceptions\InvalidStatsValuesException;
 
 interface ScoreCalculator {
 
@@ -10,15 +10,12 @@ interface ScoreCalculator {
      * Devuelve los puntos realizados por un jugador para su equipo.
      * @return int
      */
-    public function getMatchScore();
+    public function getTeamScore();
 
     /**
-     * TODO: Se ha añadido un throws a este método para tener presente que
-     * hay una excepción que ha de ser manejada.
-     *
      * Devuelve los puntos realizados por un jugador para ser elegido MVP.
      * @return int
-     * @throws WrongDataFileFormatException
+     * @throws InvalidStatsValuesException
      */
     public function getPlayerScore();
 }

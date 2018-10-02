@@ -20,7 +20,7 @@ class HandballScoreCalculatorTest extends TestCase {
         $handballScoreCalculator = new HandballScoreCalculator($stats);
 
         $this->assertEquals(HandballStatsGenerator::STATS_RANK_1_SCORE, $handballScoreCalculator->getPlayerScore());
-        $this->assertEquals(HandballStatsGenerator::GOAL_MADE_STATS_1, $handballScoreCalculator->getMatchScore());
+        $this->assertEquals(HandballStatsGenerator::GOAL_MADE_STATS_1, $handballScoreCalculator->getTeamScore());
     }
 
     public function testRank2Score() {
@@ -28,7 +28,7 @@ class HandballScoreCalculatorTest extends TestCase {
         $handballScoreCalculator = new HandballScoreCalculator($stats);
 
         $this->assertEquals(HandballStatsGenerator::STATS_RANK_2_SCORE, $handballScoreCalculator->getPlayerScore());
-        $this->assertEquals(HandballStatsGenerator::GOAL_MADE_STATS_2, $handballScoreCalculator->getMatchScore());
+        $this->assertEquals(HandballStatsGenerator::GOAL_MADE_STATS_2, $handballScoreCalculator->getTeamScore());
     }
 
     public function testRank3Score() {
@@ -36,7 +36,7 @@ class HandballScoreCalculatorTest extends TestCase {
         $handballScoreCalculator = new HandballScoreCalculator($stats);
 
         $this->assertEquals(HandballStatsGenerator::STATS_RANK_3_SCORE, $handballScoreCalculator->getPlayerScore());
-        $this->assertEquals(HandballStatsGenerator::GOAL_MADE_STATS_3, $handballScoreCalculator->getMatchScore());
+        $this->assertEquals(HandballStatsGenerator::GOAL_MADE_STATS_3, $handballScoreCalculator->getTeamScore());
     }
 
     public function testRank4Score() {
@@ -44,6 +44,6 @@ class HandballScoreCalculatorTest extends TestCase {
         $handballScoreCalculator = new HandballScoreCalculator($stats);
 
         $this->assertEquals(HandballStatsGenerator::STATS_RANK_4_SCORE, $handballScoreCalculator->getPlayerScore());
-        $this->assertEquals(HandballStatsGenerator::GOAL_MADE_STATS_4, $handballScoreCalculator->getMatchScore());
+        $this->assertEquals(HandballStatsGenerator::GOAL_MADE_STATS_4, $handballScoreCalculator->getTeamScore());
     }
 }

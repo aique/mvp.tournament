@@ -20,7 +20,7 @@ class BasketballScoreCalculatorTest extends TestCase {
         $basketballScoreCalculator = new BasketballScoreCalculator($stats);
 
         $this->assertEquals(BasketballStatsGenerator::STATS_RANK_1_SCORE, $basketballScoreCalculator->getPlayerScore());
-        $this->assertEquals(BasketballStatsGenerator::POINTS_STATS_1, $basketballScoreCalculator->getMatchScore());
+        $this->assertEquals(BasketballStatsGenerator::POINTS_STATS_1, $basketballScoreCalculator->getTeamScore());
     }
 
     public function testRank2Score() {
@@ -28,7 +28,7 @@ class BasketballScoreCalculatorTest extends TestCase {
         $basketballScoreCalculator = new BasketballScoreCalculator($stats);
 
         $this->assertEquals(BasketballStatsGenerator::STATS_RANK_2_SCORE, $basketballScoreCalculator->getPlayerScore());
-        $this->assertEquals(BasketballStatsGenerator::POINTS_STATS_2, $basketballScoreCalculator->getMatchScore());
+        $this->assertEquals(BasketballStatsGenerator::POINTS_STATS_2, $basketballScoreCalculator->getTeamScore());
     }
 
     public function testRank3Score() {
@@ -36,7 +36,7 @@ class BasketballScoreCalculatorTest extends TestCase {
         $basketballScoreCalculator = new BasketballScoreCalculator($stats);
 
         $this->assertEquals(BasketballStatsGenerator::STATS_RANK_3_SCORE, $basketballScoreCalculator->getPlayerScore());
-        $this->assertEquals(BasketballStatsGenerator::POINTS_STATS_3, $basketballScoreCalculator->getMatchScore());
+        $this->assertEquals(BasketballStatsGenerator::POINTS_STATS_3, $basketballScoreCalculator->getTeamScore());
     }
 
     public function testRank4Score() {
@@ -44,6 +44,6 @@ class BasketballScoreCalculatorTest extends TestCase {
         $basketballScoreCalculator = new BasketballScoreCalculator($stats);
 
         $this->assertEquals(BasketballStatsGenerator::STATS_RANK_4_SCORE, $basketballScoreCalculator->getPlayerScore());
-        $this->assertEquals(BasketballStatsGenerator::POINTS_STATS_4, $basketballScoreCalculator->getMatchScore());
+        $this->assertEquals(BasketballStatsGenerator::POINTS_STATS_4, $basketballScoreCalculator->getTeamScore());
     }
 }

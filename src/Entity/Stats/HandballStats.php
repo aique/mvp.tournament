@@ -2,39 +2,29 @@
 
 namespace App\Entity\Stats;
 
-use App\Exceptions\WrongDataFileFormatException;
 use App\Services\Score\HandballScoreCalculator;
 
-class HandballStats extends GameStats {
+class HandballStats extends PlayerStats {
 
-    const GOALKEEPER_POSITION = 'goalkeeper';
-    const FIELD_PLAYER_POSITION = 'field_player';
+    const GOALKEEPER_POSITION = 'G';
+    const FIELD_PLAYER_POSITION = 'F';
 
     private $position;
-    private $goalMade;
-    private $goalReceived;
+    private $goalsMade;
+    private $goalsReceived;
 
-    /**
-     * HandballStats constructor.
-     * @param $position
-     * @param $goalMade
-     * @param $goalReceived
-     * @throws WrongDataFileFormatException
-     */
-    public function __construct($position, $goalMade, $goalReceived) {
+    public function __construct($position, $goalsMade, $goalsReceived) {
         $this->position = $position;
-        $this->goalMade = $goalMade;
-        $this->goalReceived = $goalReceived;
+        $this->goalsMade = $goalsMade;
+        $this->goalsReceived = $goalsReceived;
 
-        if (!$this->validStats()) {
-            throw new WrongDataFileFormatException();
-        }
+        parent::__construct();
     }
 
-    private function validStats() {
+    protected function validStats() {
         return $this->validPosition() &&
-            $this->validPositiveNumericValue($this->goalMade) &&
-            $this->validPositiveNumericValue($this->goalReceived);
+            $this->validPositiveNumericValue($this->goalsMade) &&
+            $this->validPositiveNumericValue($this->goalsReceived);
     }
 
     private function validPosition() {
@@ -52,18 +42,18 @@ class HandballStats extends GameStats {
     /**
      * @return mixed
      */
-    public function getGoalMade() {
-        return $this->goalMade;
+    public function getGoalsMade() {
+        return $this->goalsMade;
     }
 
     /**
      * @return mixed
      */
-    public function getGoalReceived() {
-        return $this->goalReceived;
+    public function getGoalsReceived() {
+        return $this->goalsReceived;
     }
 
-    public function getScoreCalculator() {
+    protected function getScoreCalculator() {
         return new HandballScoreCalculator($this);
     }
 }

@@ -32,23 +32,18 @@ class HandballStats extends PlayerStats {
             $this->position == self::FIELD_PLAYER_POSITION;
     }
 
-    /**
-     * @return mixed
-     */
     public function getPosition() {
         return $this->position;
     }
 
-    /**
-     * @return mixed
-     */
+    public function setPosition($position) {
+        $this->position = $position;
+    }
+
     public function getGoalsMade() {
         return $this->goalsMade;
     }
 
-    /**
-     * @return mixed
-     */
     public function getGoalsReceived() {
         return $this->goalsReceived;
     }

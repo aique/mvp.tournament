@@ -15,12 +15,13 @@ use PHPUnit\Framework\Assert;
 /**
  * Defines application features from the specific context.
  */
-class FeatureContext implements Context
+class TournamentFeatureContext implements Context
 {
     /**
      * @var Tournament
      */
     private $tournament;
+
     /**
      * @var Match
      */
@@ -94,5 +95,4 @@ class FeatureContext implements Context
     {
         Assert::assertGreaterThanOrEqual(intval($count), count($this->tournament->getMVPs()));
     }
-
 }

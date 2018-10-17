@@ -1,6 +1,6 @@
 Feature: Tournament
   In order to give an award
-  As a organizer
+  As an organizer
   I need to get the most valuable players
 
   Scenario: Requesting a most valuable players list

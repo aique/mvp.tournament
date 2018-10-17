@@ -30,6 +30,8 @@ abstract class PlayerStats implements ScoreCalculator {
         return $this->getScoreCalculator()->getPlayerScore();
     }
 
+    public abstract function setPosition($position);
+
     /**
      * @return ScoreCalculator
      */

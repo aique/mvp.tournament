@@ -41,6 +41,10 @@ class BasketballStats extends PlayerStats {
         return $this->position;
     }
 
+    public function setPosition($position) {
+        $this->position = $position;
+    }
+
     public function getPoints() {
         return $this->points;
     }

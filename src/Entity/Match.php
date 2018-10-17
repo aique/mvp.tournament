@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Stats\GameStats;
 use App\Services\MatchMvpFinder;
 use App\Services\MatchWinnerFinder;
 
@@ -29,6 +30,10 @@ class Match {
      */
     public function setGameStats($gameStats) {
         $this->gameStats = $gameStats;
+    }
+
+    public function addGameStats(GameStats $gameStats) {
+        $this->gameStats[] = $gameStats;
     }
 
     public function getWinner() {
